@@ -1,0 +1,37 @@
+version: "3.6"
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: develop.webhook.postgres
+    command: postgres -c max_connections=200
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: secret
+      ENV: ${ENV:-develop}
+    volumes:
+      - ./utils/postgresql/data:/var/lib/postgresql/data
+      - ./utils/postgresql/init:/docker-entrypoint-initdb.d
+    ports:
+      - 54321:5432  
+  
+  redis_pubsub:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: allocation-image
+    depends_on:
+      - postgres
+      - redis
+      - mailhog
+    environment:
+      - DB_HOST=postgres
+      - DB_PASSWORD=abc123
+      - REDIS_HOST=redis
+      - EMAIL_HOST=mailhog
+      - PYTHONDONTWRITEBYTECODE=1
+    volumes:
+      - ./src:/src
+      - ./tests:/tests
+    entrypoint:
+      - python
+      - /src/allocation/entrypoints/redis_eventconsumer.py
