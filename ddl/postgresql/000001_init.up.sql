@@ -16,8 +16,8 @@ CREATE TABLE webhook_configurations (
     id INT PRIMARY KEY AUTO_INCREMENT,
     webhook_id INT NOT NULL,
     event_type_id INT NOT NULL,
-    custom_headers TEXT,  
-    custom_payload TEXT, 
+    custom_headers JSON,  
+    custom_payload JSON, 
     FOREIGN KEY (webhook_id) REFERENCES webhook_registrations(id),
     FOREIGN KEY (event_type_id) REFERENCES event_types(id)
 );
