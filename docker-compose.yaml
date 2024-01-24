@@ -12,6 +12,4 @@ services:
       - ./utils/postgresql/data:/var/lib/postgresql/data
       - ./utils/postgresql/init:/docker-entrypoint-initdb.d
     ports:
-      - 54321:5432  
-  
-  api:
+      - 54321:5432
