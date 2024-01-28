@@ -10,8 +10,8 @@ Base = declarative_base()
 class WebhookConfigurationModel(Base):
     __tablename__ = 'webhook_configurations'
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    webhook_id = Column(UUID, ForeignKey('webhook_registrations.id'), nullable=False)
-    event_type_id = Column(Integer, ForeignKey('event_types.id'), nullable=False)
+    webhook_id = Column(UUID, nullable=False)
+    event_type_id = Column(Integer, nullable=False)
     custom_headers = Column(JSON)
     custom_payload = Column(JSON)
 
@@ -21,8 +21,8 @@ class WebhookConfigurationModel(Base):
 
 
 class WebhookConfigurationData(BaseModel):
-    id : uuid.uuid4 = None
-    webhook_id: uuid.uuid4  = None
-    event_type_id: uuid.uuid4
-    custom_headers: pydantic_json
-    custom_payload: pydantic_json
+    id : str = None
+    webhook_id: str = None
+    event_type_id: str
+    custom_headers:  dict[str, str] = None 
+    custom_payload:  dict[str, str] = None

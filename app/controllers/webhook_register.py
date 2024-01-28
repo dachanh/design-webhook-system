@@ -9,15 +9,19 @@ from schema.webhook import WebhookRegisterRequest
 
 def registerWebhookController(appctx: factoryApp, data : WebhookRegisterRequest):
     print(data)
-    webhookData = WebhookRegistrationData(**data)
+    webhookData = WebhookRegistrationData(**data.dict())
     print(webhookData.dict())
     webhookModel = WebhookRegistrationModel(**webhookData.dict())
     # insert webhook register model
     appctx.session.add(webhookModel)
     appctx.session.commit()
-    print(webhookModel.id)
-    webhookConfigData = WebhookConfigurationData(**data)
+    print("webhook_id",webhookModel.id)
+    print("type webhook_id",type(webhookModel.id))
+    # data['webhook_id'] = webhookModel.id
+    webhookConfigData = WebhookConfigurationData(**data.dict())
     webhookConfigData.webhook_id =  webhookModel.id
+    print("*"*10000)
+    print(webhookConfigData)
     webConfigModel = WebhookConfigurationModel(**webhookConfigData.dict())
     # print(type(webConfigModel.id))
     # webConfigModel.event_type_id = webhookRegisterModel.id

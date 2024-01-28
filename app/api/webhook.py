@@ -19,6 +19,7 @@ class WebhookRegister(Resource):
         try:
             registerWebhookController(factory_app,req)
         except Exception as e:
+            factory_app.session.rollback()
             print(e)
             return {
                 "error":e
