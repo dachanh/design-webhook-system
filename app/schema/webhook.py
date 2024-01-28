@@ -1,10 +1,10 @@
-from pydantic import BaseModel
+from typing_extensions import TypedDict
+from pydantic import UUID4
 from typing import List, Optional,Dict
 
-class WebhookRegisterRequest(BaseModel):
-    event_type_id: str
+class WebhookRegisterRequest(TypedDict):
+    event_type_id: UUID4
     user_id: int
     url: str
-    event_type_id: str
     custom_headers: Optional[Dict[str, str]]
     custom_payload: Optional[Dict[str, str]]

@@ -8,7 +8,6 @@ factory_app = factoryApp()
 
 class WebhookRegister(Resource):
     def post(self):
-        print("--------"*100)
         try:
             req = WebhookRegisterRequest(**request.json)
         except Exception as e:
@@ -16,8 +15,14 @@ class WebhookRegister(Resource):
             return {
                 "errors":e
             },400
-        print(req)
+
         try:
             registerWebhookController(factory_app,req)
         except Exception as e:
-            print("")
+            print(e)
+            return {
+                "error":e
+            },400
+        return {
+            "message":"ok"
+        },200

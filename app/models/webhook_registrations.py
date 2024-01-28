@@ -1,4 +1,5 @@
 import uuid
+from pydantic import BaseModel 
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
@@ -17,3 +18,9 @@ class WebhookRegistrationModel(Base):
     class Config:
         populate_by_name = True
         from_attributes = True
+        arbitrary_types_allowed=True
+
+class WebhookRegistrationData(BaseModel):
+    id : uuid.uuid4  = None
+    user_id : int
+    url: str

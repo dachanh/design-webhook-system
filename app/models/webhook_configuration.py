@@ -1,4 +1,5 @@
 import uuid
+from pydantic import BaseModel ,Json as pydantic_json
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
@@ -17,3 +18,11 @@ class WebhookConfigurationModel(Base):
     class Config:
         populate_by_name = True
         from_attributes = True
+
+
+class WebhookConfigurationData(BaseModel):
+    id : uuid.uuid4 = None
+    webhook_id: uuid.uuid4  = None
+    event_type_id: uuid.uuid4
+    custom_headers: pydantic_json
+    custom_payload: pydantic_json

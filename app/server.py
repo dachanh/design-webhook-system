@@ -12,5 +12,5 @@ def route_webhook():
 
 if __name__ == '__main__':
     route_webhook()
-    app.run(host="0.0.0.0",port=8081)    
+    app.run(host="0.0.0.0",port=8081,debug=True)    
     
