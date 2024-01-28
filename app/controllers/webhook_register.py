@@ -1,7 +1,7 @@
-from app.core.factory import factoryApp
-from app.models.webhook_registrations import WebhookRegistrationModel
-from app.models.webhook_configuration import WebhookConfigurationModel
-from app.schema.webhook import WebhookRegisterRequest
+from core.factory import factoryApp
+from models.webhook_registrations import WebhookRegistrationModel
+from models.webhook_configuration import WebhookConfigurationModel
+from schema.webhook import WebhookRegisterRequest
 
 
 def registerWebhookController(appctx: factoryApp, data : WebhookRegisterRequest):
