@@ -6,24 +6,19 @@ from core.factory import factoryApp
 
 factory_app = factoryApp()
 
+
 class WebhookRegister(Resource):
     def post(self):
         try:
             req = WebhookRegisterRequest(**request.json)
         except Exception as e:
-            print("ERROR :",e)
-            return {
-                "errors":e
-            },400
+            print("ERROR :", e)
+            return {"errors": e}, 400
 
         try:
-            registerWebhookController(factory_app,req)
+            registerWebhookController(factory_app, req)
         except Exception as e:
             factory_app.session.rollback()
             print(e)
-            return {
-                "error":e
-            },400
-        return {
-            "message":"ok"
-        },200
+            return {"error": e}, 400
+        return {"message": "ok"}, 200

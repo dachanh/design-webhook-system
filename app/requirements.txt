@@ -1,4 +1,6 @@
 amqp==5.2.0
+aniso8601==9.0.1
+annotated-types==0.6.0
 billiard==4.2.0
 blinker==1.7.0
 celery==5.3.6
@@ -7,6 +9,7 @@ click-didyoumean==0.3.0
 click-plugins==1.1.1
 click-repl==0.3.0
 Flask==3.0.0
+Flask-RESTful==0.3.10
 greenlet==3.0.3
 itsdangerous==2.1.2
 Jinja2==3.1.3
@@ -16,9 +19,12 @@ omymodels==0.15.1
 parsimonious==0.10.0
 ply==3.11
 prompt-toolkit==3.0.43
+psycopg2-binary==2.9.9
 py-models-parser==0.7.0
-pydantic==1.10.14
+pydantic==2.5.3
+pydantic_core==2.14.6
 python-dateutil==2.8.2
+pytz==2023.3.post1
 regex==2023.12.25
 simple-ddl-parser==1.0.2
 six==1.16.0
