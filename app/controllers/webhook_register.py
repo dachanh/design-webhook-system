@@ -1,15 +1,5 @@
-from pydantic import TypeAdapter
-from typing import Generic, TypeVar, Annotated
-
 from core.factory import factoryApp
-from models.webhook_registrations import (
-    WebhookRegistrationModel,
-    WebhookRegistrationData,
-)
-from models.webhook_configuration import (
-    WebhookConfigurationModel,
-    WebhookConfigurationData,
-)
+from repositories.webhook import WebhookRepository
 from schema.webhook import WebhookRegisterRequest
 
 
