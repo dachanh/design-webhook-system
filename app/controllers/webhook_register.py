@@ -14,16 +14,18 @@ from schema.webhook import WebhookRegisterRequest
 
 
 def registerWebhookController(appctx: factoryApp, data: WebhookRegisterRequest):
-    webhookData = WebhookRegistrationData(**data.dict())
-    webhookModel = WebhookRegistrationModel(**webhookData.dict())
-    # insert webhook register model
-    appctx.session.add(webhookModel)
-    appctx.session.commit()
-    # data['webhook_id'] = webhookModel.id
-    webhookConfigData = WebhookConfigurationData(**data.dict())
-    webhookConfigData.webhook_id = webhookModel.id
-    webConfigModel = WebhookConfigurationModel(**webhookConfigData.dict())
-    appctx.session.add(webConfigModel)
-    appctx.session.commit()
+    """
+    Registers a new webhook.
+    Uses repository for database operations.
+    """
+    repository = WebhookRepository(appctx.session)
+
+    # Create models
+    webhookModel = repository.create_registration_model(data)
+    webConfigModel = repository.create_config_model(data, webhookModel.id)
+
+    # Persist models
+    repository.add(webhookModel)
+    repository.add(webConfigModel)
 
     return None
