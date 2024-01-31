@@ -1,7 +1,8 @@
 import os
+import requests
 from core.factory import factoryApp
 from schema.upload_file import UploadFileEvent
-
+from schema.webhook import WebhookExecute
 factory = factoryApp()
 event = factory.celery
 
@@ -21,6 +22,9 @@ class UploadFileWebhook(object):
             file.write(input.file_content)
         
         return "ok"
-    
+    @event.task
     def webhook(self,data: dict):
-        input =  
+        input: WebhookExecute = WebhookExecute(**data)
+        response =  requests.post(input.url)
+        return response.json()
+
