@@ -1,4 +1,3 @@
-from typing_extensions import TypedDict
 from pydantic import UUID4, BaseModel
 from typing import List, Optional, Dict
 
