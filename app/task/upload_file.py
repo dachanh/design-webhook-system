@@ -1,19 +1,26 @@
 import os
 from core.factory import factoryApp
 from schema.upload_file import UploadFileEvent
-factory_app = factoryApp()
 
-event = factory_app.celery
+factory = factoryApp()
+event = factory.celery
 
 
-@event.task
-def publish_upload_file(data: dict):
-    req :UploadFileEvent = UploadFileEvent(**data)
-    file_path = os.path.join(factory_app.upload_file,req.filename)
 
-    with open(file_path,"'wb") as file:
-        file.write(req.file_content)
+
+class UploadFileWebhook(object):
+    def __init__(self) -> None:
+        pass
+
+    @event.task
+    def publish_upload_file(self,data: dict):
+        input:UploadFileEvent = UploadFileEvent(**data)
+        file_path = os.path.join(factory.upload_file,input.filename)
+
+        with open(file_path,"'wb") as file:
+            file.write(input.file_content)
+        
+        return "ok"
     
-    return "ok"
-
-
+    def webhook(self,data: dict):
+        input =  
