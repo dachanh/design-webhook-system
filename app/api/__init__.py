@@ -21,3 +21,4 @@ class UploadFile(Resource):
             
             if file:
                  filename = secure_filename(file.filename)
+                 
