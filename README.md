@@ -15,6 +15,7 @@ the sequence of interactions for registering a webhook could be as follows:
 
 ![ File Upload and Webhook Notification Process](document/file_upload.svg)
 
+The sequence of interactions could be as follows:
 - User Application: The external application where the user initiates the file upload.
 - Upload Service: A Python-based service that handles file uploads.
 - Task Queue (Celery): Manages asynchronous tasks, such as processing the file upload.
