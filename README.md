@@ -1,5 +1,6 @@
 # design-webhook-system
 
+## Sequence API Webhook Registration Process
 
 ![API Webhook Registration Process](document/webhook_register.svg)
 
@@ -10,6 +11,8 @@ the sequence of interactions for registering a webhook could be as follows:
 - The Database acknowledges the registration.
 - The Webhook Service sends a confirmation response back to the User Application.
 
+## Sequence File Upload and Webhook Notification Process
+
 ![ File Upload and Webhook Notification Process](document/file_upload.svg)
 
 - User Application: The external application where the user initiates the file upload.
@@ -17,5 +20,6 @@ the sequence of interactions for registering a webhook could be as follows:
 - Task Queue (Celery): Manages asynchronous tasks, such as processing the file upload.
 - Webhook Service: Notifies the User Application via a webhook when the upload is successfully completed.
 
+## Database
 
 ![Database](document/database.svg)
