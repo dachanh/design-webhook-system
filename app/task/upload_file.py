@@ -9,15 +9,15 @@ event = factory.celery
 
 
 
-class UploadFileWebhook(object):
+class UploadFileTask(object):
     def __init__(self) -> None:
         pass
 
-    @event.task
+    @event.task(bind=True)
     def publish_upload_file(self,data: dict):
         input:UploadFileEvent = UploadFileEvent(**data)
         file_path = os.path.join(factory.upload_file,input.filename)
-
+        
         with open(file_path,"'wb") as file:
             file.write(input.file_content)
         

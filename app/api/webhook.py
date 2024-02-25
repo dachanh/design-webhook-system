@@ -7,7 +7,7 @@ from core.response import error_response
 factory_app = factoryApp()
 
 
-class WebhookRegister(Resource):
+class WebhookRegisterApi(Resource):
     @error_response
     def post(self):
         try:

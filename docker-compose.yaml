@@ -13,3 +13,9 @@ services:
       - ./utils/postgresql/init:/docker-entrypoint-initdb.d
     ports:
       - 54321:5432
+  
+  redis:
+    image: "redis:alpine"
+    container_name: develop.redis
+    ports:
+      - "6379:6379"
