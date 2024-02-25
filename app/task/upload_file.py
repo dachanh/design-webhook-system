@@ -17,7 +17,6 @@ class UploadFileTask(object):
     def publish_upload_file(self,data: dict):
         input:UploadFileEvent = UploadFileEvent(**data)
         file_path = os.path.join(factory.upload_file,input.filename)
-        print(type(input.file_content))
         with open(file_path,"wb") as file:
             file.write(input.file_content)
         
