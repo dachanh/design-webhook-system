@@ -43,7 +43,7 @@ services:
       dockerfile: Dockerfile 
     ports:
       - "5555:5555"
-    command: ['celery','flower','-A','tasks']
+    command: ['celery','--broker','redis://127.0.0.1:6379/0','flower','-A','tasks']
     environment:
       CELERY_BROKER_URL: redis://develop.redis:6379/0
       CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
