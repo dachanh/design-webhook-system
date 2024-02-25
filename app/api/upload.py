@@ -6,7 +6,7 @@ from controllers.webhook_register import registerWebhookController
 
 from core.factory import factoryApp
 from core.response import error_response
-from task.upload_file import UploadFileTask
+from tasks.upload_file import UploadFileTask
 factory_app = factoryApp()
 
 upload_file_task = UploadFileTask()
