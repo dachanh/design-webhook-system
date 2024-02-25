@@ -21,27 +21,51 @@ services:
       - "6379:6379"
 
   worker:
+    container_name: develop.webhook.worker
     build:
-      context: ./celery-queue
+      context: ./app/tasks
       dockerfile: Dockerfile
-    command: celery -A tasks worker -l info -E
+    command: celery -A task.upload_file.celery worker --loglevel=info
     environment:
       CELERY_BROKER_URL: redis://develop.redis:6379/0
       CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
+      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5434/webhook?sslmode=disable
     depends_on:
       - redis
-    volumes: ['./app/tasks:/queue']
+      - api
+    volumes:
+      - './app/tasks:/worker'
   
   celery-monitor:
+    container_name: develop.webhook.celery-monitor
     build:
-      context: ./app/task
+      context: ./app/tasks
       dockerfile: Dockerfile 
     ports:
-    - "5555:5555"
+      - "5555:5555"
     command: ['celery','flower','-A','tasks']
     environment:
       CELERY_BROKER_URL: redis://develop.redis:6379/0
       CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
+      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5434/webhook?sslmode=disable
     depends_on:
       - redis
       - worker
+    volumes:
+      - './app/tasks:/worker'
+
+  api:
+    container_name: develop.webhook.api
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      CELERY_BROKER_URL: redis://develop.redis:6379/0
+      CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
+      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5434/webhook?sslmode=disable
+    depends_on:
+      - redis
+    volumes:
+      - './app:/api'
