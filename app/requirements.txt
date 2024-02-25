@@ -24,7 +24,6 @@ Jinja2==3.1.3
 kombu==5.3.5
 MarkupSafe==2.1.3
 mypy-extensions==1.0.0
-omymodels==0.15.1
 packaging==23.2
 parsimonious==0.10.0
 pathspec==0.12.1
@@ -34,8 +33,8 @@ prometheus_client==0.20.0
 prompt-toolkit==3.0.43
 psycopg2-binary==2.9.9
 py-models-parser==0.7.0
-pydantic
-pydantic_core
+pydantic==2.5.3
+pydantic_core==2.14.6
 python-dateutil==2.8.2
 pytz==2023.3.post1
 redis==5.0.1
@@ -44,7 +43,6 @@ requests==2.31.0
 simple-ddl-parser==1.0.2
 six==1.16.0
 SQLAlchemy==2.0.25
-table-meta==0.1.5
 tomli==2.0.1
 tornado==6.4
 typing_extensions==4.9.0
@@ -52,4 +50,3 @@ tzdata==2023.4
 urllib3==2.2.0
 vine==5.1.0
 wcwidth==0.2.13
-Werkzeug==3.0.1
