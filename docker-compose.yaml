@@ -25,7 +25,7 @@ services:
     build:
       context: ./app/tasks
       dockerfile: Dockerfile
-    command: celery -A task.upload_file.celery worker --loglevel=info
+    command: celery -A upload_file.celery worker -l info -E
     environment:
       CELERY_BROKER_URL: redis://develop.redis:6379/0
       CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
