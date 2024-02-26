@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime
-from pydantic import UUID4, BaseModel,validator
+from pydantic import UUID4, BaseModel, validator
 from typing import List, Optional, Dict
 
 
@@ -22,16 +22,16 @@ class WebhookData(BaseModel):
     class Config:
         populate_by_name = True
         from_attributes = True
-    
+
     @validator("id", allow_reuse=True)
     def validate_uuids(cls, value):
         if value:
             print(value)
             return str(value)
         return value
-    
-    @validator("created_at","updated_at", allow_reuse=True)
-    def validate_datetime(cls,value):
+
+    @validator("created_at", "updated_at", allow_reuse=True)
+    def validate_datetime(cls, value):
         # Attempt to parse the datetime string
         try:
             # If the value is already a datetime object, return it directly
@@ -41,9 +41,12 @@ class WebhookData(BaseModel):
             parsed_date = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
         except ValueError as e:
             # If parsing fails, raise a ValueError
-            raise ValueError(f"Invalid datetime format for {value}. Required format: YYYY-MM-DD HH:MM:SS") from e
+            raise ValueError(
+                f"Invalid datetime format for {value}. Required format: YYYY-MM-DD HH:MM:SS"
+            ) from e
         return parsed_date
-        
+
+
 class WebhookExecute(BaseModel):
     url: str
     user_id: int
@@ -52,6 +55,7 @@ class WebhookExecute(BaseModel):
     class Config:
         populate_by_name = True
         from_attributes = True
+
 
 class WebhookConfigurationData(BaseModel):
     id: str = None
@@ -63,6 +67,7 @@ class WebhookConfigurationData(BaseModel):
     class Config:
         populate_by_name = True
         from_attributes = True
+
 
 class WebhookRegistrationData(BaseModel):
     id: uuid.uuid4 = None
