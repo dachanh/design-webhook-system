@@ -15,6 +15,7 @@ class WebhookRepository:
 
     def add(self, model):
         self.session.add(model)
+        self.session.commit()
 
     def create_registration_model(self, data):
         webhookData = WebhookRegistrationData(**data.dict())

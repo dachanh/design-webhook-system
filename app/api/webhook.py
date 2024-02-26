@@ -19,7 +19,7 @@ class WebhookRegisterApi(Resource):
         try:
             registerWebhookController(factory_app, req)
         except Exception as e:
-            # factory_app.session.rollback()
+            factory_app.session.rollback()
             raise e
 
         return generate_response(message="Register Webhook Successfully!")

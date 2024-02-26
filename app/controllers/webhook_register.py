@@ -13,12 +13,11 @@ def registerWebhookController(appctx: factoryApp, data: WebhookRegisterRequest):
 
     # Create models
     webhookModel = repository.create_registration_model(data)
-    webConfigModel = repository.create_config_model(data, webhookModel.id)
-
-    # Persist models
     repository.add(webhookModel)
+    
+    webConfigModel = repository.create_config_model(data, webhookModel.id)
+    # Persist models
     repository.add(webConfigModel)
-    appctx.session.commit()
     appctx.session.close()
 
     return None
