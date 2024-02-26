@@ -4,6 +4,7 @@ from schema.webhook import WebhookRegisterRequest
 from controllers.webhook_register import registerWebhookController
 from core.factory import factoryApp
 from core.response import error_response
+
 factory_app = factoryApp()
 
 
@@ -20,5 +21,5 @@ class WebhookRegisterApi(Resource):
         except Exception as e:
             factory_app.session.rollback()
             raise e
-        
+
         return {"message": "ok"}, 200

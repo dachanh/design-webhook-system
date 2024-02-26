@@ -9,6 +9,7 @@ class WebhookRegisterRequest(BaseModel):
     custom_headers: Optional[Dict[str, str]]
     custom_payload: Optional[Dict[str, str]]
 
+
 class WebhookExecute(BaseModel):
     url: str
     user_id: int

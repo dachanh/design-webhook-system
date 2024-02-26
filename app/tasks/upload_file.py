@@ -3,10 +3,9 @@ import requests
 from core.factory import factoryApp
 from schema.upload_file import UploadFileEvent
 from schema.webhook import WebhookExecute
+
 factory = factoryApp()
 celery = factory.celery
-
-
 
 
 class UploadFileTask(object):
@@ -14,17 +13,16 @@ class UploadFileTask(object):
         pass
 
     @celery.task(bind=True)
-    def publish_upload_file(self,data: dict):
-        input:UploadFileEvent = UploadFileEvent(**data)
-        file_path = os.path.join(factory.upload_file,input.filename)
-        with open(file_path,"wb") as file:
+    def publish_upload_file(self, data: dict):
+        input: UploadFileEvent = UploadFileEvent(**data)
+        file_path = os.path.join(factory.upload_file, input.filename)
+        with open(file_path, "wb") as file:
             file.write(input.file_content)
-        
-        return "ok"
-    
-    @celery.task(bind=True)
-    def webhook(self,data: dict):
-        input: WebhookExecute = WebhookExecute(**data)
-        response =  requests.post(input.url)
-        return response.json()
 
+        return "ok"
+
+    @celery.task(bind=True)
+    def webhook(self, data: dict):
+        input: WebhookExecute = WebhookExecute(**data)
+        response = requests.post(input.url)
+        return response.json()

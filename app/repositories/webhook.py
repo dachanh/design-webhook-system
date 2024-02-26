@@ -6,6 +6,8 @@ from models.webhook_configuration import (
     WebhookConfigurationModel,
     WebhookConfigurationData,
 )
+
+
 class WebhookRepository:
     def __init__(self, session):
         self.session = session
