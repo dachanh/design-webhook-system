@@ -25,7 +25,11 @@ class UploadFileAPI(Resource):
         if file:
             filename = secure_filename(file.filename)
             # You can now use the user_id in your file processing
-            data = {"file_content": file.read(), "filename": filename}
+            data = {
+                "file_content": file.read(),
+                "filename": filename,
+                "user_ID": user_id,
+            }
             task = upload_file_task.publish_upload_file.apply_async(args=[data])
             print(task.id)
         return generate_response(message="ok")

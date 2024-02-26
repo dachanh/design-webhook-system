@@ -3,7 +3,7 @@ from flask_restful import Resource
 from schema.webhook import WebhookRegisterRequest
 from controllers.webhook_register import registerWebhookController
 from core.factory import factoryApp
-from core.response import error_response,generate_response
+from core.response import error_response, generate_response
 
 factory_app = factoryApp()
 

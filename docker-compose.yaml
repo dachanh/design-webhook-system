@@ -13,13 +13,16 @@ services:
       - ./utils/postgresql/init:/docker-entrypoint-initdb.d
     ports:
       - 54321:5432
-  
+    networks:
+      - webhook-network
+
   redis:
     image: "redis:alpine"
     container_name: develop.redis
     ports:
       - "6379:6379"
-
+    networks:
+      - webhook-network
   worker:
     container_name: develop.webhook.worker
     build:
@@ -29,13 +32,15 @@ services:
     environment:
       CELERY_BROKER_URL: redis://develop.redis:6379/0
       CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
-      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5434/webhook?sslmode=disable
+      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5432/develop-webhook?sslmode=disable
     depends_on:
       - redis
       - api
     volumes:
       - './app/tasks:/worker'
-  
+    networks:
+      - webhook-network
+
   celery-monitor:
     container_name: develop.webhook.celery-monitor
     build:
@@ -47,12 +52,14 @@ services:
     environment:
       CELERY_BROKER_URL: redis://develop.redis:6379/0
       CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
-      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5434/webhook?sslmode=disable
+      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5432/develop-webhook?sslmode=disable
     depends_on:
       - redis
       - worker
     volumes:
       - './app/tasks:/worker'
+    networks:
+      - webhook-network
 
   api:
     container_name: develop.webhook.api
@@ -64,8 +71,14 @@ services:
     environment:
       CELERY_BROKER_URL: redis://develop.redis:6379/0
       CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
-      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5434/webhook?sslmode=disable
+      DATABASE_URL: postgresql://root:secret@develop.webhook.postgres:5432/develop-webhook?sslmode=disable
     depends_on:
       - redis
     volumes:
       - './app:/api'
+    networks:
+      - webhook-network
+
+networks:
+  webhook-network:
+    driver: bridge
