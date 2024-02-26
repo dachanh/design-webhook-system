@@ -3,7 +3,7 @@ from flask_restful import Resource
 from schema.webhook import WebhookRegisterRequest
 from controllers.webhook_register import registerWebhookController
 from core.factory import factoryApp
-from core.response import error_response
+from core.response import error_response,generate_response
 
 factory_app = factoryApp()
 
@@ -14,7 +14,7 @@ class WebhookRegisterApi(Resource):
         try:
             req = WebhookRegisterRequest(**request.json)
         except Exception as e:
-            raise e
+            raise Exception("Invalid JSON input")
 
         try:
             registerWebhookController(factory_app, req)
@@ -22,4 +22,4 @@ class WebhookRegisterApi(Resource):
             factory_app.session.rollback()
             raise e
 
-        return {"message": "ok"}, 200
+        return generate_response(message="Register Webhook Successfully!")
