@@ -23,9 +23,9 @@ services:
   worker:
     container_name: develop.webhook.worker
     build:
-      context: ./app/tasks
+      context: ./app
       dockerfile: Dockerfile
-    command: celery -A upload_file.celery worker -l info -E
+    command: celery -A tasks.upload_file.celery worker -l info -E
     environment:
       CELERY_BROKER_URL: redis://develop.redis:6379/0
       CELERY_RESULT_BACKEND: redis://develop.redis:6379/0
@@ -39,7 +39,7 @@ services:
   celery-monitor:
     container_name: develop.webhook.celery-monitor
     build:
-      context: ./app/tasks
+      context: ./app
       dockerfile: Dockerfile 
     ports:
       - "5555:5555"

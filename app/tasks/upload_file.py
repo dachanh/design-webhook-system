@@ -21,6 +21,7 @@ class UploadFileTask(object):
             file.write(input.file_content)
         
         return "ok"
+    
     @celery.task(bind=True)
     def webhook(self,data: dict):
         input: WebhookExecute = WebhookExecute(**data)
