@@ -16,7 +16,6 @@ class WebhookRepository:
     def add(self, model):
         try:
             self.session.add(model)
-            self.session.commit()
         except Exception as e:
             self.session.rollback()
             raise e

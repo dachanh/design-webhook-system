@@ -8,6 +8,7 @@ def registerWebhookController(appctx: factoryApp, data: WebhookRegisterRequest):
     Registers a new webhook.
     Uses repository for database operations.
     """
+    appctx.session.begin()
     repository = WebhookRepository(appctx.session)
 
     # Create models
@@ -17,5 +18,7 @@ def registerWebhookController(appctx: factoryApp, data: WebhookRegisterRequest):
     # Persist models
     repository.add(webhookModel)
     repository.add(webConfigModel)
+    appctx.session.commit()
+    appctx.session.close()
 
     return None
