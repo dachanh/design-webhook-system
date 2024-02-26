@@ -79,6 +79,20 @@ services:
     networks:
       - webhook-network
 
+  migrate:
+    container_name: develop.webhook.migrate
+    build: 
+      context: ./migrate
+      dockerfile: Dockerfile
+    environment:
+      CONNECTION_STRING: root:secret@develop.webhook.postgres:5432/develop-webhook?sslmode=disable
+    depends_on:
+      - postgres
+    networks:
+      - webhook-network
+    volumes:
+      - ./migrate:/migrate
+
 networks:
   webhook-network:
     driver: bridge

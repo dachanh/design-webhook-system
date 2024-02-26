@@ -19,7 +19,7 @@ class UploadFileTask(object):
         with open(file_path, "wb") as file:
             file.write(input.file_content)
 
-        return 
+        return
 
     @celery.task(bind=True)
     def webhook(self, data: dict):

@@ -1,2 +1,2 @@
 class EventTypeConst:
-    UPLOAD_FILE = 'upload file'
+    UPLOAD_FILE = "upload file"
