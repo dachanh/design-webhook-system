@@ -22,9 +22,3 @@ class WebhookRegistrationModel(Base):
         populate_by_name = True
         from_attributes = True
         arbitrary_types_allowed = True
-
-
-class WebhookRegistrationData(BaseModel):
-    id: uuid.uuid4 = None
-    user_id: int
-    url: str

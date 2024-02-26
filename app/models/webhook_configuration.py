@@ -15,15 +15,3 @@ class WebhookConfigurationModel(Base):
     event_type_id = Column(Integer, nullable=False)
     custom_headers = Column(JSON)
     custom_payload = Column(JSON)
-
-    class Config:
-        populate_by_name = True
-        from_attributes = True
-
-
-class WebhookConfigurationData(BaseModel):
-    id: str = None
-    webhook_id: str = None
-    event_type_id: str
-    custom_headers: dict[str, str] = None
-    custom_payload: dict[str, str] = None

@@ -18,6 +18,7 @@ def registerWebhookController(appctx: factoryApp, data: WebhookRegisterRequest):
     webConfigModel = repository.create_config_model(data, webhookModel.id)
     # Persist models
     repository.add(webConfigModel)
+    appctx.session.expunge_all()
     appctx.session.close()
 
-    return None
+    return webhookModel

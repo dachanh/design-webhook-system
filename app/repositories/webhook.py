@@ -1,12 +1,12 @@
 from sqlalchemy import select, func
 from models.webhook_registrations import (
     WebhookRegistrationModel,
-    WebhookRegistrationData,
 )
 from models.webhook_configuration import (
     WebhookConfigurationModel,
-    WebhookConfigurationData,
 )
+
+from schema.webhook import WebhookConfigurationData, WebhookRegistrationData
 
 
 class WebhookRepository:

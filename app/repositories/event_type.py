@@ -28,6 +28,6 @@ class EventTypeRepository:
         if input.name != None:
             query = query.filter(EventType.name == input.name)
 
-        item = query.first()
+        item = query.one()
 
         return item

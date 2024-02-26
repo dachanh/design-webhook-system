@@ -13,7 +13,9 @@ class factoryApp(object):
 
     def get_session_local(self) -> sessionmaker:
         engine = create_engine(os.getenv("DATABASE_URL"))
-        return sessionmaker(autocommit=False, autoflush=False, bind=engine)()
+        return sessionmaker(
+            autocommit=False, autoflush=False, bind=engine, expire_on_commit=False
+        )()
 
     def make_celery(self):
         # Configure Celery. Replace 'your_broker_url' and 'your_backend_url' with actual URLs
