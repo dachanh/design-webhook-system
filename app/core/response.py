@@ -7,9 +7,9 @@ def generate_response(
     message: str,
     data: dict = {},
     error: bool = False,
+    code:int = 200
 ):
-
-    return {"message": message, "data": data, "error": error}
+    return {"message": message, "data": data, "error": error}, code
 
 
 
@@ -28,6 +28,7 @@ def error_response(function):
                 .replace('Exception("', "")
                 .replace('")', ""),
                 error=True,
+                code = 400
             )
 
     return exception_handler

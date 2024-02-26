@@ -5,7 +5,7 @@ from schema.webhook import WebhookRegisterRequest
 from controllers.webhook_register import registerWebhookController
 
 from core.factory import factoryApp
-from core.response import error_response
+from core.response import error_response,generate_response
 from tasks.upload_file import UploadFileTask
 factory_app = factoryApp()
 
@@ -15,11 +15,13 @@ class UploadFileAPI(Resource):
      @error_response
      def post(self,user_id):
         if 'file' not in request.files:
-            return {'message': 'No file part'}, 400
+            # return {'message': 'No file part'}, 400
+            raise Exception('No file part')
         file = request.files['file']
         if file.filename == '':
-            return {'message': 'No selected file'}, 400
-        
+            raise Exception('No selected file')
+            # return {'message': 'No selected file'}, 400
+    
         if file:
             filename = secure_filename(file.filename)
             # You can now use the user_id in your file processing
@@ -29,4 +31,4 @@ class UploadFileAPI(Resource):
             }
             task = upload_file_task.publish_upload_file.apply_async(args=[data])
             print(task.id)
-        return{"message": "ok"}, 200
+        return generate_response(message="ok")
