@@ -14,11 +14,7 @@ class WebhookRepository:
         self.session = session
 
     def add(self, model):
-        try:
-            self.session.add(model)
-        except Exception as e:
-            self.session.rollback()
-            raise e
+        self.session.add(model)
 
     def create_registration_model(self, data):
         webhookData = WebhookRegistrationData(**data.dict())
