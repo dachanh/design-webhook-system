@@ -1,5 +1,5 @@
 from uuid import UUID
-from pydantic import BaseModel,validator
+from pydantic import BaseModel, validator
 
 
 class EventTypeParams(BaseModel):
@@ -8,8 +8,8 @@ class EventTypeParams(BaseModel):
 
 
 class EventType(BaseModel):
-    id: UUID 
-    name: str 
+    id: UUID
+    name: str
     description: str
 
     class Config:

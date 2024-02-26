@@ -3,6 +3,7 @@ from flask_restful import Api
 from api.webhook import WebhookRegisterApi
 from api.upload import UploadFileAPI
 from api.event_type import EventTypeAPI
+
 app = Flask(__name__)
 
 
@@ -15,9 +16,11 @@ def route_upload_file():
     upload_file_api = Api(app=app)
     upload_file_api.add_resource(UploadFileAPI, "/upload_file/user_id/<user_id>")
 
+
 def route_event_type():
     event_type_api = Api(app=app)
-    event_type_api.add_resource(EventTypeAPI,'/event_type')
+    event_type_api.add_resource(EventTypeAPI, "/event_type")
+
 
 route_webhook()
 route_upload_file()

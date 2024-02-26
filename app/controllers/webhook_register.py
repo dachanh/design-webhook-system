@@ -14,7 +14,7 @@ def registerWebhookController(appctx: factoryApp, data: WebhookRegisterRequest):
     # Create models
     webhookModel = repository.create_registration_model(data)
     repository.add(webhookModel)
-    
+
     webConfigModel = repository.create_config_model(data, webhookModel.id)
     # Persist models
     repository.add(webConfigModel)
