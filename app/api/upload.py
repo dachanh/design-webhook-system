@@ -34,4 +34,4 @@ class UploadFileAPI(Resource):
                 upload_file_task.webhook.s(),
             ).apply_async()
 
-        return generate_response(message="ok")
+        return generate_response(message="Successfully !")
