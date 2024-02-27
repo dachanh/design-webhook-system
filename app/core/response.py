@@ -1,7 +1,6 @@
-import json
-from http import HTTPStatus
 from typing import *
 import traceback
+from flask import current_app as app
 
 
 def generate_response(
@@ -15,8 +14,8 @@ def error_response(function):
         try:
             return function(*args, **kwargs)
         except Exception as exc:
-            print(repr(exc))
-            print(traceback.format_exc())
+            app.logger.error(repr(exc))  # Log the exception
+            app.logger.error(traceback.format_exc())  # Log the traceback
             messageRaw = str(repr(exc))
 
             return generate_response(

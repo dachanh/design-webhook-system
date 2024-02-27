@@ -1,3 +1,4 @@
+import logging
 from flask import Flask
 from flask_restful import Api
 from api.webhook import WebhookRegisterApi
@@ -6,7 +7,14 @@ from api.event_type import EventTypeAPI
 
 app = Flask(__name__)
 
+if not app.debug:
+    app.logger.setLevel(logging.INFO)  # Set the logging level
 
+    # StreamHandler logs to stderr by default
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
+    
 def route_webhook():
     webhook_api = Api(app=app)
     webhook_api.add_resource(WebhookRegisterApi, "/webhook/register")
