@@ -258,3 +258,96 @@ curl --request POST \
 
 ```
 
+## How To Start Project
+
+Because I use Docker to develop so you just run this command
+
+```
+docker-compose up -d
+```
+
+Next step, You should run migrate database, let run this command:
+
+
+```
+docker exec develop.webhook.migrate make migrate
+```
+
+API : `http://0.0.0.0:8081`
+
+Postgresql: `http://0.0.0.0:54321`
+
+Redis: `http://0.0.0.0:6379`
+
+Flower: `http://0.0.0.0:5555`
+
+## How To Test
+
+
+ Here's a step-by-step guide to help you test the full workflow from retrieving the list of event types, registering a webhook for a specific event type, and finally, uploading a file using the registered webhook.
+
+ ## Step 1: Get List of Event Types
+
+- Objective: Retrieve a list of available event types to find an event_type_id for registration.
+- Action: Send a GET request to /event_type.
+- Expected Response: A JSON response containing a list of event types. From this list, note the id of the event type you wish to use for registering a webhook.
+
+Example curl:
+
+```
+curl --request GET \
+  --url http://0.0.0.0:8081/event_type
+```
+
+
+## Step 2: Register a Webhook
+
+- Objective: Use the event_type_id obtained from Step 1 to register a new webhook.
+- Pre-requisite: Have the event_type_id ready from Step 1.
+- Action: Send a POST request to /webhook/register with the required JSON payload, including event_type_id, user_id, url, and optionally, custom_headers and custom_payload.
+- Expected Response: A JSON response indicating successful registration, including a webhook id. This id is needed for the file upload step.
+
+Example curl:
+
+```
+curl --request POST \
+  --url http://0.0.0.0:8081/webhook/register \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "event_type_id": "<event_type_id>",
+    "user_id": 1,
+    "url": "https://webhook-test.com/callback",
+    "custom_headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer yourtokenhere"
+    },
+    "custom_payload": {
+        "key1": "value1",
+        "key2": "value2"
+    }
+}'
+```
+
+Replace <event_type_id> with the actual id you obtained in Step 1.
+
+# Step 3: Upload File Using the Registered Webhook
+
+- Objective: Upload a file using the webhook id obtained from Step 2.
+- Pre-requisite: Have the webhook_id from the successful webhook registration.
+- Action: Send a POST request to /upload_file/webhook_id/{webhook_id} with the file included in the form data.
+- Expected Response: A JSON response indicating that the file upload was successful.
+
+Example Curl:
+
+```
+curl --request POST \
+  --url http://0.0.0.0:8081/upload_file/webhook_id/<webhook_id> \
+  --header 'Content-Type: multipart/form-data; boundary=---011000010111000001101001' \
+  --form file=@/path/to/your/file.jpg
+```
+
+Replace <webhook_id> with the actual id you received after registering the webhook in Step 2.
+
+I recommend ![webhook-test](https://webhook-test.com/) to demonstrate webhook url
+
+![webhook-test](document/example_webhook.png)
