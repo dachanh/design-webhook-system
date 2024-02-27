@@ -113,6 +113,7 @@ docker exec develop.webhook.migrate make migrate
 - Celery Flower Monitoring: Provides a visual interface for tracking and managing Celery tasks.If you want to check it, please
 access to `0.0.0.0:5555`
 
+![Flower Dashboard](document/flower_dashboard.png)
 
 ## API
 
