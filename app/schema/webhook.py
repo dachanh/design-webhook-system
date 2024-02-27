@@ -8,8 +8,16 @@ class WebhookRegisterRequest(BaseModel):
     event_type_id: str
     user_id: int
     url: str
-    custom_headers: Optional[Dict[str, str]]
-    custom_payload: Optional[Dict[str, str]]
+    custom_headers: Optional[Dict[str, str]] = None
+    custom_payload: Optional[Dict[str, str]] = None
+
+
+class WebhookConfigurationData(BaseModel):
+    id: uuid.UUID
+    webhook_id: uuid.UUID
+    event_type_id: uuid.UUID
+    custom_headers: Optional[Dict[str, str]] = None
+    custom_payload: Optional[Dict[str, str]] = None
 
 
 class WebhookRegisterParams(BaseModel):
@@ -66,8 +74,8 @@ class WebhookConfigurationData(BaseModel):
     id: str = None
     webhook_id: str = None
     event_type_id: str
-    custom_headers: dict[str, str] = None
-    custom_payload: dict[str, str] = None
+    custom_headers: Optional[dict[str, str]] = None
+    custom_payload: Optional[dict[str, str]] = None
 
     class Config:
         populate_by_name = True

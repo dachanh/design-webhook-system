@@ -12,6 +12,6 @@ class WebhookConfigurationModel(Base):
     __tablename__ = "webhook_configurations"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     webhook_id = Column(UUID, nullable=False)
-    event_type_id = Column(Integer, nullable=False)
+    event_type_id = Column(UUID, nullable=False)
     custom_headers = Column(JSON)
     custom_payload = Column(JSON)

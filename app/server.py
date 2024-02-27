@@ -14,7 +14,8 @@ if not app.debug:
     handler = logging.StreamHandler()
     handler.setLevel(logging.INFO)
     app.logger.addHandler(handler)
-    
+
+
 def route_webhook():
     webhook_api = Api(app=app)
     webhook_api.add_resource(WebhookRegisterApi, "/webhook/register")

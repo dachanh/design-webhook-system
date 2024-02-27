@@ -22,13 +22,5 @@ CREATE TABLE webhook_configurations (
     FOREIGN KEY (event_type_id) REFERENCES event_types(id)
 );
 
-CREATE TABLE error_log (
-    id  UUID DEFAULT gen_random_uuid()  PRIMARY KEY,
-    webhook_execution_id UUID NOT NULL,
-    error_message TEXT NOT NULL,
-    retry_count INT DEFAULT 0,
-    next_retry_time TIMESTAMP
-);
-
 INSERT INTO event_types (name, description)
 VALUES ('upload file', 'Event type for file upload operations');
