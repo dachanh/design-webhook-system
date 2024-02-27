@@ -76,6 +76,7 @@ services:
       - redis
     volumes:
       - './app:/api'
+      - ./logs:/logs
     networks:
       - webhook-network
 

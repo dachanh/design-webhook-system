@@ -11,4 +11,4 @@ RUN pip install -r requirements.txt
 EXPOSE 8081
 
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8081", "--workers", "3", "server:app"]
+CMD ["gunicorn", "--config", "gunicorn.conf.py", "--bind", "0.0.0.0:8081", "--workers", "3", "server:app"]
