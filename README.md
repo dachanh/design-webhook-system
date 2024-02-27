@@ -119,11 +119,11 @@ access to `0.0.0.0:5555`
 
 ### List Event Type API
 
-Endpoint: `GET /event_type`
+**Endpoint**: `GET /event_type`
 
-Description: Retrieves a list of all available event types within the system.
+**Description**: Retrieves a list of all available event types within the system.
 
-Response:
+**Response**:
 
 - message (string): A message indicating the outcome of the operation.
 - data (array of objects): A list of event types, each object containing:
@@ -132,7 +132,7 @@ Response:
     - description (string): A brief description of the event type.
 - error (boolean): Indicates whether there was an error processing the request. false indicates no error occurred.
 
-Example Response:
+**Example Response**:
 
 ```
 {
@@ -148,7 +148,7 @@ Example Response:
 }
 ```
 
-Example: Curl:
+**Example Curl**:
 
 ```
 curl --request GET \
@@ -157,14 +157,14 @@ curl --request GET \
 
 ###  Webhook Registration API
 
-endpoint: `POST /webhook/register`
+**Endpoint**: `POST /webhook/register`
 
-Description: This endpoint allows users to register a new webhook for a specified event type.
+**Description**: This endpoint allows users to register a new webhook for a specified event type.
 
-Headers:
+**Headers**:
 
-Content-Type: application/json
-Request Body:
+**Content-Type**: application/json
+**Request Body**:
 
 - event_type_id (string): Unique identifier for the event type.
 - user_id (integer): Identifier of the user registering the webhook.
@@ -172,7 +172,7 @@ Request Body:
 - custom_headers (object): Optional. A set of custom headers to send with the webhook.
 - custom_payload (object): Optional. A custom payload to send with the webhook.
 
-Response:
+**Response**:
 
 - message (string): Describes the outcome of the request.
 - data (object): Contains the following properties:
@@ -184,7 +184,7 @@ Response:
 - error (boolean): Indicates if there was an error during the registration process.
 
 
-Example Response:
+**Example Response**:
 
 ```
 {
@@ -200,7 +200,7 @@ Example Response:
 }
 ```
 
-Example curl:
+**Example Curl**:
 
 ```
 curl --request POST \
@@ -223,22 +223,22 @@ curl --request POST \
 
 ### Upload File API 
 
-Endpoint: `/upload_file/webhook_id/{webhook_id}`
+**Endpoint**: `/upload_file/webhook_id/{webhook_id}`
 
-Method: POST
+**Method**: POST
 
 
-URL Parameters:
+**URL Parameters**:
 
 webhook_id: The unique identifier of the webhook to which the file is to be uploaded. This is a UUID format string in the path of the URL
 
 
-Body Parameters:
+**Body Parameters**:
 
 file: The file to be uploaded. This should be included in the form data of the request. The file parameter should be the actual file you wish to upload, referenced by its file path on the client's system.
 
 
-Successful Response:
+**Successful Response**:
 
 Code: 200 Ok
 Content:
@@ -248,7 +248,7 @@ Content:
 - error: A boolean value indicating whether an error occurred during the request. A value of false indicates that no error occurred.
 
 
-Example Curl:
+**Example Curl**:
 
 ```
 curl --request POST \
@@ -273,13 +273,13 @@ Next step, You should run migrate database, let run this command:
 docker exec develop.webhook.migrate make migrate
 ```
 
-API : `http://0.0.0.0:8081`
+**API** : `http://0.0.0.0:8081`
 
-Postgresql: `http://0.0.0.0:54321`
+**Postgresql**: `http://0.0.0.0:54321`
 
-Redis: `http://0.0.0.0:6379`
+**Redis**: `http://0.0.0.0:6379`
 
-Flower: `http://0.0.0.0:5555`
+**Flower**: `http://0.0.0.0:5555`
 
 ## How To Test
 
@@ -292,7 +292,7 @@ Flower: `http://0.0.0.0:5555`
 - Action: Send a GET request to /event_type.
 - Expected Response: A JSON response containing a list of event types. From this list, note the id of the event type you wish to use for registering a webhook.
 
-Example curl:
+**Example Curl**:
 
 ```
 curl --request GET \
@@ -307,7 +307,7 @@ curl --request GET \
 - Action: Send a POST request to /webhook/register with the required JSON payload, including event_type_id, user_id, url, and optionally, custom_headers and custom_payload.
 - Expected Response: A JSON response indicating successful registration, including a webhook id. This id is needed for the file upload step.
 
-Example curl:
+**Example Curl**:
 
 ```
 curl --request POST \
@@ -337,7 +337,7 @@ Replace <event_type_id> with the actual id you obtained in Step 1.
 - Action: Send a POST request to /upload_file/webhook_id/{webhook_id} with the file included in the form data.
 - Expected Response: A JSON response indicating that the file upload was successful.
 
-Example Curl:
+**Example Curl**:
 
 ```
 curl --request POST \
