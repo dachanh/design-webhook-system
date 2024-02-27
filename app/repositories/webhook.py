@@ -40,12 +40,14 @@ class WebhookRepository:
         return item
 
     def find_one_webhook_register(self, input: WebhookRegisterParams):
+        print(input)
         stmt = self.session.query(WebhookRegistrationModel)
 
         if input.url != None:
             stmt = stmt.filter(WebhookRegistrationModel.url == input.url)
 
         if input.id != None:
+            print(input.id)
             stmt = stmt.filter(WebhookRegistrationModel.id == input.id)
 
         if input.user_id != None:

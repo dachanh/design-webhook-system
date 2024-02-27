@@ -31,9 +31,8 @@ class UploadFileAPI(Resource):
             }
             task = chain(
                 upload_file_task.publish_upload_file.s(data),
-                upload_file_task.webhook.s()
+                upload_file_task.webhook.s(),
             ).apply_async()
 
-            print(task.id)
 
         return generate_response(message="ok")
