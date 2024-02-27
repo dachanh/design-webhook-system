@@ -6,7 +6,11 @@ from models.webhook_configuration import (
     WebhookConfigurationModel,
 )
 
-from schema.webhook import WebhookConfigurationData, WebhookRegistrationData
+from schema.webhook import (
+    WebhookConfigurationData,
+    WebhookRegistrationData,
+    WebhookRegisterParams,
+)
 
 
 class WebhookRepository:
@@ -30,19 +34,23 @@ class WebhookRepository:
         item = (
             self.session.query(WebhookConfigurationModel)
             .filter(WebhookConfigurationModel.webhook_id == webhook_id)
-            .first()
+            .one()
         )
 
         return item
 
-    def find_webhook_register(self, user_id: int, webhook_register_id: str):
-        item = (
-            self.session.query(WebhookRegistrationModel)
-            .filter(
-                WebhookRegistrationModel.user_id == user_id,
-                WebhookRegistrationModel.id == webhook_register_id,
-            )
-            .first()
-        )
+    def find_one_webhook_register(self, input: WebhookRegisterParams):
+        stmt = self.session.query(WebhookRegistrationModel)
+
+        if input.url != None:
+            stmt = stmt.filter(WebhookRegistrationModel.url == input.url)
+
+        if input.id != None:
+            stmt = stmt.filter(WebhookRegistrationModel.id == input.id)
+
+        if input.user_id != None:
+            stmt = stmt.filter(WebhookConfigurationModel.user_id == input.user_id)
+
+        item = stmt.one()
 
         return item

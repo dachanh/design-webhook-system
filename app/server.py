@@ -14,7 +14,7 @@ def route_webhook():
 
 def route_upload_file():
     upload_file_api = Api(app=app)
-    upload_file_api.add_resource(UploadFileAPI, "/upload_file/user_id/<user_id>")
+    upload_file_api.add_resource(UploadFileAPI, "/upload_file/webhook_id/<webhook_id>")
 
 
 def route_event_type():

@@ -12,6 +12,12 @@ class WebhookRegisterRequest(BaseModel):
     custom_payload: Optional[Dict[str, str]]
 
 
+class WebhookRegisterParams(BaseModel):
+    id: UUID4 = None
+    user_id: int = None
+    url: str = None
+
+
 class WebhookData(BaseModel):
     id: uuid.UUID
     user_id: int
@@ -48,8 +54,7 @@ class WebhookData(BaseModel):
 
 
 class WebhookExecute(BaseModel):
-    url: str
-    user_id: int
+    # url: str
     webhook_id: str
 
     class Config:

@@ -2,10 +2,13 @@ import os
 import requests
 from core.factory import factoryApp
 from schema.upload_file import UploadFileEvent
-from schema.webhook import WebhookExecute
+from schema.webhook import WebhookExecute, WebhookRegisterParams
+
+from repositories.webhook import WebhookRepository
 
 factory = factoryApp()
 celery = factory.celery
+webhook_repo = WebhookRepository(factory.session)
 
 
 class UploadFileTask(object):
@@ -19,10 +22,15 @@ class UploadFileTask(object):
         with open(file_path, "wb") as file:
             file.write(input.file_content)
 
-        return
+        return {
+            "webhook_id":input.webhook_ID
+        }
 
     @celery.task(bind=True)
     def webhook(self, data: dict):
         input: WebhookExecute = WebhookExecute(**data)
-        response = requests.post(input.url)
+        webhook_register = webhook_repo.find_one_webhook_register(
+            WebhookRegisterParams(id=input.webhook_id)
+        )
+        response = requests.post(webhook_register.url)
         return response.json()
